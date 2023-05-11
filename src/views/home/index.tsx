@@ -16,11 +16,11 @@ export const HomeView: FC = ({ }) => {
 
   // Set the generated QR code on the QR ref element
   const qrRef = useRef<HTMLDivElement>()
-  if (qrRef.current) {
+  // if (qrRef.current) {
     qrRef.current.innerHTML = ''
     qr.append(qrRef.current)
     console.log("appended");
-  } 
+  // } 
 
   return (
 
