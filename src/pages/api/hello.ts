@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { PublicKey, SystemProgram, Transaction } from '@solana/web3.js'
+import { Connection, PublicKey, SystemProgram, Transaction } from '@solana/web3.js'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type GetData = {
@@ -24,7 +24,7 @@ function get(
   });
 }
 
-function post(
+async function post(
   req: NextApiRequest,
   res: NextApiResponse<PostData>
   ) {
@@ -45,6 +45,9 @@ function post(
     const transaction = new Transaction();
     transaction.add(ix);
 
+    const connection = new Connection("https://api.devnet.solana.com")
+    const bh = await connection.getLatestBlockhash();
+    transaction.recentBlockhash = bh.blockhash;
 
     // Serialize and return the unsigned transaction.
     const serializedTransaction = transaction.serialize({
@@ -59,7 +62,7 @@ function post(
 
 }
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<GetData|PostData>
 ) {
@@ -68,6 +71,6 @@ export default function handler(
     return get(req, res);
   } else if(req.method == "POST"){
     console.log("received POST request");
-    return post(req, res);
+    return await post(req, res);
   }
 }

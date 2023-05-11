@@ -8,19 +8,21 @@ import pkg from '../../../package.json';
 import { createQR } from "@solana/pay";
 
 
-const SOLANA_PAY_URL = "solana:192.168.13.131:3000/api/hello";
+const SOLANA_PAY_URL = "solana:solana-pay-demo-loopcreativeandy.vercel.app/api/hello";
 
 export const HomeView: FC = ({ }) => {
 
-  const qr = createQR(SOLANA_PAY_URL, 360, 'white', 'black');
-
-  // Set the generated QR code on the QR ref element
   const qrRef = useRef<HTMLDivElement>()
-  // if (qrRef.current) {
-    qrRef.current.innerHTML = ''
-    qr.append(qrRef.current)
-    console.log("appended");
-  // } 
+  useEffect(() => {
+    const qr = createQR(SOLANA_PAY_URL, 360, 'white', 'black');
+
+    // Set the generated QR code on the QR ref element
+    if (qrRef.current) {
+      qrRef.current.innerHTML = ''
+      qr.append(qrRef.current)
+      console.log("appended");
+    } 
+  }, [])
 
   return (
 
