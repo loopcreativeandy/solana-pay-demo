@@ -8,7 +8,7 @@ import pkg from '../../../package.json';
 import { createQR } from "@solana/pay";
 
 
-const SOLANA_PAY_URL = "solana:solana-pay-demo-loopcreativeandy.vercel.app/api/hello";
+const SOLANA_PAY_URL = "solana:https://solana-pay-demo-loopcreativeandy.vercel.app/api/hello";
 
 export const HomeView: FC = ({ }) => {
 

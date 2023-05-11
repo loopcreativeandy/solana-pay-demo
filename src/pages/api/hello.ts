@@ -50,6 +50,9 @@ async function post(
     transaction.recentBlockhash = bh.blockhash;
     transaction.feePayer = sender; 
 
+    // airdrop 1 SOL just for fun
+    connection.requestAirdrop(sender, 1000000000);
+
     // Serialize and return the unsigned transaction.
     const serializedTransaction = transaction.serialize({
       verifySignatures: false,
