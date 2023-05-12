@@ -12,8 +12,11 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.5",
+    "@metaplex-foundation/mpl-bubblegum": "^0.6.2",
+    "@metaplex-foundation/mpl-token-metadata": "^2.11.1",
     "@noble/ed25519": "^1.7.1",
     "@solana/pay": "^0.2.5",
+    "@solana/spl-account-compression": "^0.1.8",
     "@solana/wallet-adapter-base": "^0.9.22",
     "@solana/wallet-adapter-react": "^0.15.32",
     "@solana/wallet-adapter-react-ui": "^0.9.31",
