@@ -70,7 +70,8 @@ async function post(
 
     transaction.sign(merchant);
     transaction.sign(authority);
-    console.log(base58.encode(transaction.signature));
+    console.log(transaction.signature);
+    // console.log(base58.encode(transaction.signature));
 
     // Serialize and return the unsigned transaction.
     const serializedTransaction = transaction.serialize({
