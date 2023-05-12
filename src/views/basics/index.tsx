@@ -10,7 +10,7 @@ import { createQR } from "@solana/pay";
 
 const SOLANA_PAY_URL = "solana:https://solana-pay-demo-loopcreativeandy.vercel.app/api/mint";
 
-export const HomeView: FC = ({ }) => {
+export const BasicsView: FC = ({ }) => {
 
   const qrRef = useRef<HTMLDivElement>()
   useEffect(() => {
