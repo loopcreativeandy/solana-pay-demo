@@ -63,15 +63,14 @@ async function post(
     transaction.feePayer = merchant.publicKey; 
 
     // for correct account ordering 
-    // transaction = Transaction.from(transaction.serialize({
-    //   verifySignatures: false,
-    //   requireAllSignatures: false,
-    // }));
+    transaction = Transaction.from(transaction.serialize({
+      verifySignatures: false,
+      requireAllSignatures: false,
+    }));
 
-    transaction.sign(merchant);
-    transaction.sign(authority);
+    transaction.sign(merchant, authority);
     console.log(transaction.signature);
-    // console.log(base58.encode(transaction.signature));
+    console.log(base58.encode(transaction.signature));
 
     console.log(transaction);
 
