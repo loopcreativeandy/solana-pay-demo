@@ -47,13 +47,16 @@ async function post(
       lamports: 133700000
     })
 
-    const transaction = new Transaction();
+    let transaction = new Transaction();
     transaction.add(ix);
 
     const connection = new Connection("https://api.devnet.solana.com")
     const bh = await connection.getLatestBlockhash();
     transaction.recentBlockhash = bh.blockhash;
     transaction.feePayer = merchant.publicKey; 
+
+    // for correct account ordering 
+    transaction = Transaction.from(transaction.serialize());
 
     transaction.sign(merchant);
     console.log(base58.encode(transaction.signature));
