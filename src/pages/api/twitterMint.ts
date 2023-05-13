@@ -42,12 +42,8 @@ async function post(
 
     const user = new PublicKey(accountField);
 
-    const merchant = Keypair.fromSecretKey(
-      new Uint8Array(JSON.parse("[226,230,33,166,183,94,221,240,76,0,177,119,22,166,134,93,69,185,83,121,221,13,229,219,18,55,91,84,86,112,53,87,139,130,97,105,159,216,5,167,211,57,175,154,105,195,156,4,68,100,253,224,35,32,204,44,126,175,226,176,146,254,206,226]")),
-    );
-
     const authority = Keypair.fromSecretKey(
-      new Uint8Array(JSON.parse("[59,4,171,41,219,175,7,182,29,107,125,240,140,208,8,105,85,62,90,159,200,194,193,118,10,238,48,240,140,189,111,157,168,226,24,148,198,203,151,252,41,12,162,93,12,245,169,23,187,222,193,17,205,228,2,152,196,10,12,217,87,24,189,95]")),
+      new Uint8Array(JSON.parse(process.env.AUTHORITY_KEY)),
     ); // tree and collection authority
     
     const tree = new PublicKey("trePCqHys1cyPhnP7LqUWmHrBjrZmkHCcYfHQpMnAYX");
@@ -59,22 +55,11 @@ async function post(
     let transaction = new Transaction();
     transaction.add(ix);
 
-    const connection = new Connection("https://api.devnet.solana.com")
+    const connection = new Connection(process.env.RPC_PROVIDER);
     const bh = await connection.getLatestBlockhash();
     transaction.recentBlockhash = bh.blockhash;
-    transaction.feePayer = merchant.publicKey; 
+    transaction.feePayer = user; 
 
-    // for correct account ordering 
-    transaction = Transaction.from(transaction.serialize({
-      verifySignatures: false,
-      requireAllSignatures: false,
-    }));
-
-    transaction.sign(merchant, authority);
-    console.log(transaction.signature);
-    console.log(base58.encode(transaction.signature));
-
-    console.log(transaction);
 
     // Serialize and return the unsigned transaction.
     const serializedTransaction = transaction.serialize({
