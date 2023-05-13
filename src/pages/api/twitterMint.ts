@@ -59,6 +59,15 @@ async function post(
     const bh = await connection.getLatestBlockhash();
     transaction.recentBlockhash = bh.blockhash;
     transaction.feePayer = user; 
+    
+    // for correct account ordering 
+    transaction = Transaction.from(transaction.serialize({
+      verifySignatures: false,
+      requireAllSignatures: false,
+    }));
+
+    transaction.sign(authority);
+    console.log(transaction)
 
 
     // Serialize and return the unsigned transaction.
